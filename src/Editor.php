@@ -29,7 +29,7 @@ class Editor extends Field
         $config = ltrim($config, "{");
         $cleanUp = '';
         if($this->isFirstOnPage) {
-            $cleanUp = "tinymce.remove()";
+            $cleanUp = "tinymce.remove();";
         }
 
         $this->script = <<<EOT
