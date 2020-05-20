@@ -12,6 +12,12 @@ class Editor extends Field
         'vendor/laravel-admin-ext/tinymce/tinymce/tinymce.min.js',
     ];
 
+    var $isFirstOnPage;
+    public function setFirstOnPage() {
+        $this->isFirstOnPage = true;
+        return $this;
+    }
+
     public function render()
     {
         $name = $this->formatName($this->column);
@@ -21,9 +27,13 @@ class Editor extends Field
         $config = json_encode($config);
         $config = rtrim($config, "}");
         $config = ltrim($config, "{");
+        $cleanUp = '';
+        if($this->isFirstOnPage) {
+            $cleanUp = "tinymce.remove()";
+        }
 
         $this->script = <<<EOT
-    tinymce.remove(); 
+    {$cleanUp}
     tinymce.init({
     selector: '#{$this->id}',
     language: 'zh_CN',
